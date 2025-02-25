@@ -1,12 +1,15 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = (req, res) => {
-  // Перенаправление всех запросов на api.zelenka.guru
+  // Перенаправление всех запросов на api.lzt.market
   const proxy = createProxyMiddleware({
-    target: 'https://api.lzt.market', // Целевой домен
-    changeOrigin: true, // Изменяет origin запроса на целевой домен
+    target: 'https://api.lzt.market',
+    changeOrigin: true,
+    headers: {
+      host: 'api.lzt.market'
+    },
+    // В версии 3.x onProxyReq работает немного иначе
     onProxyReq: (proxyReq, req) => {
-      // Обновляем заголовки, если нужно
       proxyReq.setHeader('host', 'api.lzt.market');
     },
   });
