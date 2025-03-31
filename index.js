@@ -1,10 +1,10 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const proxy = createProxyMiddleware({
-  target: 'https://prod-api.lolz.live',
+  target: 'https://prod-api.lzt.market',
   changeOrigin: true,
   onProxyReq: (proxyReq) => {
-    proxyReq.setHeader('host', 'prod-api.lolz.live');
+    proxyReq.setHeader('host', 'prod-api.lzt.market');
   },
 });
 
