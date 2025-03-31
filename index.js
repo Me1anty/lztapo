@@ -10,7 +10,7 @@ module.exports = (req, res) => {
     },
     // В версии 3.x onProxyReq работает немного иначе
     onProxyReq: (proxyReq, req) => {
-      proxyReq.setHeader('host', 'api.lzt.market');
+      proxyReq.setHeader('host', 'prod-api.lzt.market');
     },
   });
 
