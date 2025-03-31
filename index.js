@@ -3,10 +3,10 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = (req, res) => {
   // Перенаправление всех запросов на api.lzt.market
   const proxy = createProxyMiddleware({
-    target: 'https://api.lzt.market',
+    target: 'https://prod-api.lzt.market',
     changeOrigin: true,
     headers: {
-      host: 'api.lzt.market'
+      host: 'prod-api.lzt.market'
     },
     // В версии 3.x onProxyReq работает немного иначе
     onProxyReq: (proxyReq, req) => {
