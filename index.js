@@ -1,22 +1,22 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-module.exports = (req, res) => {
-  // Перенаправление всех запросов на api.lzt.market
-  const proxy = createProxyMiddleware({
-    target: 'https://prod-api.lzt.market',
-    changeOrigin: true,
-    headers: {
-      host: 'prod-api.lzt.market'
-    },
-    // В версии 3.x onProxyReq работает немного иначе
-    onProxyReq: (proxyReq, req) => {
-      proxyReq.setHeader('host', 'prod-api.lzt.market');
-    },
-  });
+const proxy = createProxyMiddleware({
+  target: 'https://prod-api.lolz.live',
+  changeOrigin: true,
+  onProxyReq: (proxyReq) => {
+    proxyReq.setHeader('host', 'prod-api.lolz.live');
+  },
+});
 
-  proxy(req, res, (err) => {
-    if (err) {
-      res.status(500).json({ error: 'Proxy Error', details: err.message });
-    }
+module.exports = (req, res) => {
+  return new Promise((resolve, reject) => {
+    proxy(req, res, (result) => {
+      if (result instanceof Error) {
+        res.status(500).json({ error: 'Proxy Error', details: result.message });
+        reject(result);
+      } else {
+        resolve();
+      }
+    });
   });
 };
